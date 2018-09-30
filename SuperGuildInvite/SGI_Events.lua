@@ -129,13 +129,15 @@ function SGI_EVENTS:CHAT_MSG_SYSTEM(event, ...)
 	SGI:SystemMessage(event,message,...)
 end
 
+function SGI_EVENTS:CHAT_MSG_SAY(event, ...)
+	local playerName = select(5, ...)
+	SGI:TryQueue(playerName)
+end
+
 function SGI_EVENTS:CHAT_MSG_CHANNEL(event, ...)
 	local playerName = select(5, ...)
 	local channel = select(9, ...)
-
-	if playerName == "Sayn" then
-		SGI:TryQueue(playerName)
-	end
+	SGI:TryQueue(playerName)
 end
 
 
