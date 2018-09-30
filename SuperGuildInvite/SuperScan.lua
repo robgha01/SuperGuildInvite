@@ -541,18 +541,18 @@ function SGI:TryQueue(name)
 	local guild,level,race,class
 	name = TrimRealmName(name)
 	guild = GetGuildInfo(name)
-	--level = UnitLevel(name) -- <= nil!!
-	--race = UnitRace(name)
-	--class = UnitClass(name)
+	level = UnitLevel(name) or 60 -- this can be nil if target is not in party/raid
+	race = UnitRace(name) or "" -- this can be nil if target is not in party/raid
+	class = UnitClass(name) or "Hero" -- this can be nil if target is not in party/raid
 
 	SGI:BroadcastVersion(name)
 	
 	if (guild == "" or guild == nil) then
 		local player = {
 			name = name,
-			level = 60,
-			race = "",
-			class = "Hero",
+			level = level,
+			race = race,
+			class = class,
 		}		
 		if (ValidateName(player)) then
 			PutOnHold(name, level, class, race, class, GetTime())
